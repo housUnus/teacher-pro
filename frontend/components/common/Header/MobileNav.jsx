@@ -58,34 +58,41 @@ export function MobileNav({}) {
             </li>
           </ul>
           <ul>
-            {categories.map((category) => (
-              <li key={category.name} className="">
-                <button
-                  onClick={() => toggleCategory(category.name)}
-                  className="flex justify-between items-center w-full text-sm p-2 text-left hover:bg-gray-100"
-                >
-                  <span>{category.name}</span>
-                  {expandedCategory === category.name ? (
-                    <ChevronUp size={15} />
-                  ) : (
-                    <ChevronDown size={15} />
-                  )}
-                </button>
-                {expandedCategory === category.name && (
-                  <ul className="bg-gray-50 py-2">
-                    {category.children.map((subcategory) => (
-                      <li key={subcategory.name}>
-                        <a
-                          href={subcategory.url}
-                          className="block px-5 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          {subcategory.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
+            {["webinars", "face-to-face", "online"].map((parent, index) => (
+              <div key={parent}>
+                <span className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  {parent}
+                </span>
+                {categories.filter((category) => category.parent === parent).map((category) => (
+                  <li key={category.name}>
+                    <button
+                      onClick={() => toggleCategory(category.name)}
+                      className="flex justify-between items-center w-full text-sm p-2 text-left hover:bg-gray-100"
+                    >
+                      <span>{category.name}</span>
+                      {expandedCategory === category.name ? (
+                        <ChevronUp size={15} />
+                      ) : (
+                        <ChevronDown size={15} />
+                      )}
+                    </button>
+                    {expandedCategory === category.name && (
+                      <ul className="bg-gray-50 py-2">
+                        {category.children.map((subcategory) => (
+                          <li key={subcategory.name}>
+                            <a
+                              href={subcategory.url}
+                              className="block px-5 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            >
+                              {subcategory.name}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </div>
             ))}
           </ul>
         </nav>

@@ -18,9 +18,11 @@ export const routeList = [
   ];
 
   export const categories = [
+    
     {
       name: "Development",
       url: "/development",
+      parent:"webinars",
       children: [
         { name: "Web Development", url: "/development/web" },
         { name: "Mobile Development", url: "/development/mobile" },
@@ -30,6 +32,7 @@ export const routeList = [
     {
       name: "Business",
       url: "/business",
+      parent:"webinars",
       children: [
         { name: "Entrepreneurship", url: "/business/entrepreneurship" },
         { name: "Marketing", url: "/business/marketing" },
@@ -45,6 +48,7 @@ export const routeList = [
     {
       name: "Business1",
       url: "/business",
+      parent:"webinars",
       children: [
         { name: "Entrepreneurship", url: "/business/entrepreneurship" },
         { name: "Marketing", url: "/business/marketing" },
@@ -60,6 +64,7 @@ export const routeList = [
     {
       name: "Business2",
       url: "/business",
+      parent:"face-to-face",
       children: [
         { name: "Entrepreneurship", url: "/business/entrepreneurship" },
         { name: "Marketing", url: "/business/marketing" },
@@ -75,6 +80,7 @@ export const routeList = [
     {
       name: "Business3",
       url: "/business",
+      parent:"face-to-face",
       children: [
         { name: "Entrepreneurship", url: "/business/entrepreneurship" },
         { name: "Marketing", url: "/business/marketing" },
@@ -90,6 +96,7 @@ export const routeList = [
     {
       name: "Business4",
       url: "/business",
+      parent:"face-to-face",
       children: [
         { name: "Entrepreneurship", url: "/business/entrepreneurship" },
         { name: "Marketing", url: "/business/marketing" },
@@ -105,6 +112,7 @@ export const routeList = [
     {
       name: "Design",
       url: "/design",
+      parent:"offline",
       children: [
         { name: "UI/UX Design", url: "/design/uiux" },
         { name: "Graphic Design", url: "/design/graphic" },
@@ -114,6 +122,7 @@ export const routeList = [
     {
       name: "Health & Fitness",
       url: "/health-fitness",
+      parent:"online",
       children: [
         { name: "Yoga", url: "/health-fitness/yoga" },
         { name: "Nutrition", url: "/health-fitness/nutrition" },

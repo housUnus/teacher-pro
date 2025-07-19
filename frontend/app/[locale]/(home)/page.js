@@ -7,6 +7,7 @@ import CTA from "./CTA";
 import Carousel from "@/components/common/Carousel";
 import CompaniesLogo from "./CompaniesLogs";
 export default function Home() {
+  
   return (
     <main className="w-full flex flex-col gap-8 row-start-2 items-center sm:items-start">
       <Hero />

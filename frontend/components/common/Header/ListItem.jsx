@@ -16,7 +16,8 @@ export function ListItem({
           href={href}
           onMouseEnter={() => setSelectedCategory(title)}
         >
-          <span className="flex-grow flex justify-between">{title}
+          <span className="flex-grow flex justify-between">
+            {title}
             {!isChild && (
               <ChevronRight className="w-4 h-3 text-gray-500 inline-block" />
             )}

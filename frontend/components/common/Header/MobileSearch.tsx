@@ -15,7 +15,7 @@ export default function MobileSearch({}) {
   
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-    <DialogTrigger asChild className="md:hidden flex-1/6">
+    <DialogTrigger asChild className="md:hidden flex-1/6 justify-end">
       <Button variant="ghost" size="icon" className="h-9 w-9">
         <Search className="h-5 w-5" />
         <span className="sr-only">Search</span>

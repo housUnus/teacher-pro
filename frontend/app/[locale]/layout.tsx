@@ -1,6 +1,9 @@
 import { Geist, Geist_Mono, Quicksand, Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import Header from "@/components/common/Header";
+import {NextIntlClientProvider, hasLocale} from 'next-intl';
+import {notFound} from 'next/navigation';
+import {routing} from '@/i18n/routing';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,16 +31,25 @@ export const metadata = {
 };
 
 
-export default function RootLayout({
+export default async function LocaleLayout({
   children,
-}: Readonly<{
+  params
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{locale: string}>;
+}) {
+  // Ensure that the incoming `locale` is valid
+  const {locale} = await params;
+  console.log("🚀 ~ locale:", locale)
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+ 
   return (
-    <html lang="en" className={`${inter.className} ${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang={locale} className={`${inter.className} ${geistSans.variable} ${geistMono.variable} antialiased`}>
       <body className="font-sans">
-      <Header/>
-        {children}
+        <Header/>
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>
   );

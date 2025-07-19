@@ -14,7 +14,7 @@ import {
   UserPlus,
   Video,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -41,20 +41,39 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { languages } from "./constants";
 import MobileSearch from "./MobileSearch";
+import { cn } from "@/lib/utils";
+
 const getInitials = (firstName, lastName) => {
   return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 };
 
-
 export default function Header() {
-  const [user, setUser] = useState({
-    firstName: "Houssin",
-    lastName: "Ait Ali",
-    email: "houssin@gmail.com",
-  });
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const [user, setUser] = useState({'firstName': 'John', 'lastName': 'Doe'});
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-b-gray-100 bg-background">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-out",
+        isScrolled ? "bg-white/80 backdrop-blur-xl shadow-sm" : "bg-white"
+      )}
+    >
       <div className="w-full flex h-16 items-center justify-between px-4">
         {/* Mobile Menu Trigger - Left on mobile */}
         <MobileNav />
@@ -74,10 +93,8 @@ export default function Header() {
                   <Search className="w-4 h-4 group-hover:text-blue-500 transition-colors" />
                   <span className="font-medium text-sm">Explore</span>
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className=" focus:outline-none">
-                  <ul className="grid grid-cols-2 grid-flow-col w-max items-start">
+                <NavigationMenuContent className="focus:outline-none">
                     <Categories />
-                  </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -178,130 +195,137 @@ export default function Header() {
           </DropdownMenu>
 
           {/* Enhanced Notifications Dropdown */}
-        {user && <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative">
-                <Bell className="scale-125"/>
-                <Badge
-                  variant="destructive"
-                  className="absolute top-1 right-1 h-4 w-4 rounded-full p-0 flex items-center justify-center text-xs"
-                >
-                  5
-                </Badge>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-80" align="end" forceMount>
-              <DropdownMenuLabel className="flex items-center justify-between p-2">
-                <span>Notifications</span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs text-blue-600 hover:text-blue-700"
-                >
-                  Mark all as read
+          {user && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative">
+                  <Bell className="scale-125" />
+                  <Badge
+                    variant="destructive"
+                    className="absolute top-1 right-1 h-4 w-4 rounded-full p-0 flex items-center justify-center text-xs"
+                  >
+                    5
+                  </Badge>
                 </Button>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-80" align="end" forceMount>
+                <DropdownMenuLabel className="flex items-center justify-between p-2">
+                  <span>Notifications</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-xs text-blue-600 hover:text-blue-700"
+                  >
+                    Mark all as read
+                  </Button>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
 
-              <ScrollArea className="h-80">
-                <div className="space-y-0">
-                  {/* Course Update Notification */}
-                  <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900">
-                        New lesson available
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Advanced React Patterns - Chapter 5: Custom Hooks
-                      </p>
-                      <p className="text-xs text-gray-400 mt-1">2 hours ago</p>
+                <ScrollArea className="h-80">
+                  <div className="space-y-0">
+                    {/* Course Update Notification */}
+                    <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900">
+                          New lesson available
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Advanced React Patterns - Chapter 5: Custom Hooks
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">
+                          2 hours ago
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Webinar Reminder */}
+                    <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
+                      <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900">
+                          Webinar starting soon
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Building Scalable APIs starts in 30 minutes
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">30 min</p>
+                      </div>
+                    </div>
+
+                    {/* Assignment Due */}
+                    <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full flex-shrink-0"></div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900">
+                          Assignment due tomorrow
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Complete the React project for Frontend Mastery
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">1 day left</p>
+                      </div>
+                    </div>
+
+                    {/* Course Completion */}
+                    <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
+                      <div className="w-2 h-2 bg-gray-300 rounded-full flex-shrink-0"></div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-gray-700">
+                          Course completed!
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Congratulations! You've completed JavaScript
+                          Fundamentals
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">1 day ago</p>
+                      </div>
+                    </div>
+
+                    {/* New Course Recommendation */}
+                    <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
+                      <div className="w-2 h-2 bg-gray-300 rounded-full flex-shrink-0"></div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-gray-700">
+                          New course recommendation
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Based on your progress, try Advanced TypeScript
+                          Patterns
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">2 days ago</p>
+                      </div>
+                    </div>
+
+                    {/* Group Study Session */}
+                    <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
+                      <div className="w-2 h-2 bg-gray-300 rounded-full flex-shrink-0"></div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-gray-700">
+                          Study group invitation
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Join the React Developers study group for
+                          collaborative learning
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">3 days ago</p>
+                      </div>
                     </div>
                   </div>
+                </ScrollArea>
 
-                  {/* Webinar Reminder */}
-                  <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
-                    <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900">
-                        Webinar starting soon
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Building Scalable APIs starts in 30 minutes
-                      </p>
-                      <p className="text-xs text-gray-400 mt-1">30 min</p>
-                    </div>
-                  </div>
-
-                  {/* Assignment Due */}
-                  <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full flex-shrink-0"></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900">
-                        Assignment due tomorrow
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Complete the React project for Frontend Mastery
-                      </p>
-                      <p className="text-xs text-gray-400 mt-1">1 day left</p>
-                    </div>
-                  </div>
-
-                  {/* Course Completion */}
-                  <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
-                    <div className="w-2 h-2 bg-gray-300 rounded-full flex-shrink-0"></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-700">Course completed!</p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Congratulations! You've completed JavaScript
-                        Fundamentals
-                      </p>
-                      <p className="text-xs text-gray-400 mt-1">1 day ago</p>
-                    </div>
-                  </div>
-
-                  {/* New Course Recommendation */}
-                  <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
-                    <div className="w-2 h-2 bg-gray-300 rounded-full flex-shrink-0"></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-700">
-                        New course recommendation
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Based on your progress, try Advanced TypeScript Patterns
-                      </p>
-                      <p className="text-xs text-gray-400 mt-1">2 days ago</p>
-                    </div>
-                  </div>
-
-                  {/* Group Study Session */}
-                  <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 cursor-pointer">
-                    <div className="w-2 h-2 bg-gray-300 rounded-full flex-shrink-0"></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-700">
-                        Study group invitation
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Join the React Developers study group for collaborative
-                        learning
-                      </p>
-                      <p className="text-xs text-gray-400 mt-1">3 days ago</p>
-                    </div>
-                  </div>
+                <DropdownMenuSeparator />
+                <div className="p-2">
+                  <Button
+                    variant="ghost"
+                    className="w-full text-sm text-center text-blue-600 hover:text-blue-700"
+                  >
+                    View all notifications
+                  </Button>
                 </div>
-              </ScrollArea>
-
-              <DropdownMenuSeparator />
-              <div className="p-2">
-                <Button
-                  variant="ghost"
-                  className="w-full text-sm text-center text-blue-600 hover:text-blue-700"
-                >
-                  View all notifications
-                </Button>
-              </div>
-            </DropdownMenuContent>
-          </DropdownMenu>}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
 
           {/* My Account */}
           {user && (

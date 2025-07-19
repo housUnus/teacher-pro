@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { useTranslations } from 'next-intl'; // declare this import
 
 export function Hero({}) {
+  const t = useTranslations('Hero');
   return (
     <div className="container mx-auto py-8 px-10">
       <div className="grid sm:grid-cols-1 md:grid-cols-12 gap-4">
