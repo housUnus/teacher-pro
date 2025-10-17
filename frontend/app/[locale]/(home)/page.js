@@ -1,32 +1,41 @@
 import { Hero } from "./Hero";
-import CourseCard from "@/components/common/CourseCard";
-import { courses } from "@/lib/_data";
-import ExpertCard from "@/components/common/ExpertCard";
-import Stories from "./Testimonials";
+import UpcomingWebinars from "./Upcoming";
+import Testimonial from "./Testimonial";
 import CTA from "./CTA";
-import Carousel from "@/components/common/Carousel";
-import CompaniesLogo from "./CompaniesLogs";
+import CompaniesLogo from "./CompaniesLogos";
+import HowItWorksPage from "./Features";
+import PersonalSession from "./PersonSession";
+import SocialProof from "./SocialProof";
+import MotionSection from "@/components/common/Motion/MotionSection";
+import Footer from "@/components/common/Footer";
+import FAQSection from "./Faq";
+
 export default function Home() {
   
   return (
-    <main className="w-full flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <main className="w-full flex flex-col row-start-2 items-center">
       <Hero />
-
-      <div className="container max-w-6xl mx-auto">
-        <CompaniesLogo/>
+      <div className="container max-w-7xl mx-auto">
+        <HowItWorksPage/>
       </div>
-      <div className="container max-w-6xl mx-auto">
-        <Carousel courses={courses} />
+      <div className="container max-w-7xl mx-auto">
+        <UpcomingWebinars />
       </div>
-
-      <ExpertCard
-        name="John Doe"
-        expertise="Digital Marketing"
-        image="https://picsum.photos/200"
-        rating={4.7}
-        sessions={120}
-      />
-      <Stories />
+      <div className="container max-w-7xl mx-auto">
+        <PersonalSession />
+      </div>
+       <div className="container max-w-7xl mx-auto" duration={0.6}>
+        <SocialProof />
+      </div>
+      <div className="container max-w-7xl mx-auto">
+        <CompaniesLogo />
+      </div>
+      <div className="container max-w-7xl mx-auto">
+        <Testimonial />
+      </div>
+      <div className="container max-w-7xl mx-auto">
+        <FAQSection />
+      </div>
       <CTA />
     </main>
   );

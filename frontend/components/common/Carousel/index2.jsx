@@ -7,29 +7,22 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import CourseCard from "../CourseCard/index";
+import CourseCard from "../CourseCard/index2";
 
-export default function _Carousel({
-  items,
-  Component = CourseCard,
-  contentClassName = "-ml-2 md:-ml-4 lg:-ml-0 py-6",
-  ItemClassName = "basis-[95%] md:basis-[33%] lg:basis-1/4 md:pl-4 lg:pl-2 pl-2",
-}) {
+export default function _Carousel({courses}) {
   return (
-    <Carousel
-      className="w-full"
-      opts={{
+    <Carousel className="w-full" opts={{
         align: "start",
-        slidesToScroll: 1,
+        slidesToScroll: 1,    
         loop: true,
-      }}
-    >
-      <CarouselContent className={contentClassName}>
-        {items?.map((item, index) => (
-          <CarouselItem key={index} className={ItemClassName}>
-            <Component item={item} />
+      }}>
+      <CarouselContent className="-ml-2 md:-ml-4">
+        {courses?.map((course, index) => (
+          <CarouselItem key={index} className="basis-1/4">
+              <CourseCard course={course} />
           </CarouselItem>
         ))}
+        
       </CarouselContent>
       <CarouselPrevious className="absolute p-6 -left-5 top-1/2 transform -translate-y-1/2 z-10 shadow-md border border-zinc-300 font-semibold" />
       <CarouselNext className="absolute p-6 -right-5 top-1/2 transform -translate-y-1/2 z-10 shadow-md border border-zinc-300" />

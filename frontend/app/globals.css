@@ -122,21 +122,21 @@
 }
 
 .primary-carousel{
-  animation: scroll-horizontal 30s linear infinite;
+  animation: scroll-horizontal 60s linear infinite;
 }
 
 .secondary-carousel{
-  animation: scroll-horizontal 30s linear infinite;
-  animation-delay: 15s;
+  animation: scroll-horizontal 60s linear infinite;
+  animation-delay: 30s;
 }
 
 .reverse-carousel.primary-carousel{
-  animation: reverse-scroll-horizontal 34s linear infinite;
+  animation: reverse-scroll-horizontal 80s linear infinite;
 }
 
 .reverse-carousel.secondary-carousel{
-  animation: reverse-scroll-horizontal 34s linear infinite;
-  animation-delay: 17s;
+  animation: reverse-scroll-horizontal 80s linear infinite;
+  animation-delay: 40s;
 }
 
 @keyframes scroll-horizontal {
@@ -154,4 +154,23 @@
   100%{
     left:100%
   }
+}
+
+.gradient-blue {
+  @apply from-blue-500 to-cyan-500
+}
+.gradient-purple {
+  @apply from-purple-500 to-pink-500
+}
+.gradient-green {
+  @apply from-green-500 to-emerald-500
+}
+.gradient-orange {
+  @apply from-orange-500 to-red-600
+}
+.gradient-cyan{
+  @apply from-cyan-500 to-blue-600
+}
+.gradient-pink{
+  @apply from-pink-500 to-rose-600
 }

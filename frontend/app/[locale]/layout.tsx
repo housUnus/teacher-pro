@@ -4,6 +4,7 @@ import Header from "@/components/common/Header";
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
+import Footer from "@/components/common/Footer";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -48,8 +49,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${inter.className} ${geistSans.variable} ${geistMono.variable} antialiased`}>
       <body className="font-sans">
-        <Header/>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <Header/>
+          {children}
+          <Footer />
+          </NextIntlClientProvider>
       </body>
     </html>
   );
